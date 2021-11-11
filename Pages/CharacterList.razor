@@ -1,0 +1,64 @@
+﻿@page "/CharacterList"
+
+<h1>Charaters </h1>
+<input placeholder="Enter Charater Name" @bind="newName" />
+<input placeholder="Enter Charater Age" @bind="age" />
+<input placeholder="Enter Charater Profession" @bind="profession" />
+<input type="checkbox" @bind="isFric" />
+<button @onclick="AddTodo">Add todo</button>
+<table id="customers">
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Profession</th>
+                <th>Frictional or Real</th>
+            </tr>
+        
+        @foreach (var todo in todos){
+            <tr>
+                <td>@todo.Name</td>
+                <td>@todo.Age</td>
+                <td>@todo.Profession</td>
+                @if(@todo.IsFictional == false){
+                    <td>Real Charater</td>
+                }else{
+                    <td>Frictional Charater</td>
+                }
+                
+            </tr>
+        }
+
+</table>
+   
+
+
+
+
+@code {
+    private List<Character> todos = new List<Character>{
+        new Character{Name = "Robert", IsFictional = true,Profession="Iron Man",Age=50},
+        new Character{Name = "Chris Hemsworth", IsFictional = true,Profession="Captain America",Age=37},
+        new Character{Name = "Tom", IsFictional = false,Profession="Actor",Age=52},
+        new Character{Name = "Vin Disel", IsFictional = false,Profession="Actor",Age=45},
+        new Character{Name = "Paul Walker", IsFictional = false,Profession="Actor",Age=35}
+        };
+    private string newName;
+    private string profession;
+    private int age;
+    private bool isFric;
+
+    
+    
+    
+    private void AddTodo()
+    {   
+     
+        if (!string.IsNullOrWhiteSpace(newName) &&  !string.IsNullOrWhiteSpace(profession))
+        {
+            todos.Add(new Character { Name = newName, IsFictional = isFric, Profession = profession, Age = age });
+          
+            newName = string.Empty;
+        }
+    }
+    
+}
